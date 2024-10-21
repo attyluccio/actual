@@ -10,7 +10,7 @@ import {
   useHref,
 } from 'react-router-dom';
 
-import { addNotification, sync } from 'loot-core/client/actions';
+import { addNotification, pushModal, sync } from 'loot-core/client/actions';
 import { type State } from 'loot-core/src/client/state-types';
 import * as undo from 'loot-core/src/platform/client/undo';
 
@@ -156,6 +156,9 @@ export function FinancesApp() {
             width: '100%',
           }}
         >
+          <button onClick={() => dispatch(pushModal('command-k', {}))}>
+            ciao
+          </button>
           <View
             style={{
               flex: 1,

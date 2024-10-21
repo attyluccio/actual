@@ -287,6 +287,7 @@ type FinanceModals = {
   };
   'keyboard-shortcuts': EmptyObject;
   'goal-templates': EmptyObject;
+  'command-k': EmptyObject;
 };
 
 export type PushModalAction = {

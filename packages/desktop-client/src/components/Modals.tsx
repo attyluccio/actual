@@ -68,6 +68,7 @@ import { PostsOfflineNotification } from './schedules/PostsOfflineNotification';
 import { ScheduleDetails } from './schedules/ScheduleDetails';
 import { ScheduleLink } from './schedules/ScheduleLink';
 import { NamespaceContext } from './spreadsheet/NamespaceContext';
+import { CommandKModal } from './modals/cmdk/CommandKModal';
 
 export function Modals() {
   const location = useLocation();
@@ -598,6 +599,9 @@ export function Modals() {
           return <ImportActualModal key={name} />;
         case 'out-of-sync-migrations':
           return <OutOfSyncMigrationsModal key={name} />;
+
+        case 'command-k':
+          return <CommandKModal key={name} />;
 
         default:
           throw new Error('Unknown modal');
