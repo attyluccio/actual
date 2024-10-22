@@ -14,6 +14,7 @@ import { addNotification, pushModal, sync } from 'loot-core/client/actions';
 import { type State } from 'loot-core/src/client/state-types';
 import * as undo from 'loot-core/src/platform/client/undo';
 
+import { useHotkeys } from 'react-hotkeys-hook';
 import { useAccounts } from '../hooks/useAccounts';
 import { useLocalPref } from '../hooks/useLocalPref';
 import { useMetaThemeColor } from '../hooks/useMetaThemeColor';
@@ -92,6 +93,18 @@ export function FinancesApp() {
     'flags.updateNotificationShownForVersion',
   );
 
+  useHotkeys('ctrl+k', () => dispatch(pushModal('command-k', {})));
+
+  useHotkeys(
+    'ctrl+k, cmd+k, meta+k',
+    () => dispatch(pushModal('command-k', {})),
+    {
+      enableOnFormTags: true,
+      preventDefault: true,
+      // scopes: ['app'],
+    },
+  );
+
   useEffect(() => {
     // Wait a little bit to make sure the sync button will get the
     // sync start event. This can be improved later.
@@ -156,9 +169,9 @@ export function FinancesApp() {
             width: '100%',
           }}
         >
-          <button onClick={() => dispatch(pushModal('command-k', {}))}>
+          {/* <button onClick={() => dispatch(pushModal('command-k', {}))}>
             ciao
-          </button>
+          </button> */}
           <View
             style={{
               flex: 1,

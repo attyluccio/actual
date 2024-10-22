@@ -1,60 +1,47 @@
 import { Modal, ModalCloseButton, ModalHeader } from '../../common/Modal';
-import { Command } from 'cmdk';
+// import { Command } from 'cmdk';
 import { View } from '../../common/View';
-import './vercel.scss';
-import { Input } from '../../common/Input';
+// import './vercel.scss';
+// import { Input } from '../../common/Input';
 import { theme } from '../../../style';
 import { CSSProperties } from 'react';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from './command';
 import { css } from '@emotion/css';
+import { SvgAdd } from '../../../icons/v0';
+import {
+  SvgCalendar,
+  SvgCheveronDown,
+  SvgCheveronRight,
+  SvgCog,
+  SvgReports,
+  SvgStoreFront,
+  SvgTuning,
+  SvgWallet,
+} from '../../../icons/v1';
+import { useNavigate } from '../../../hooks/useNavigate';
+import { useTranslation } from 'react-i18next';
 
 type CommandKModalProps = {};
 
-const commandRootStyle = {
-  background: theme.cardBackground,
-};
-const commandInputStyle: CSSProperties = {
-  outline: 0,
-  backgroundColor: theme.tableBackground,
-  color: theme.formInputText,
-  margin: 0,
-  padding: 5,
-  borderRadius: 4,
-  border: '1px solid ' + theme.formInputBorder,
-  width: '100%',
-};
-// "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected='true']:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:opacity-50",
-const commandItemStyle: CSSProperties = {
-  contentVisibility: 'auto',
-  cursor: 'pointer',
-  height: '48px',
-  borderRadius: '8px',
-  fontSize: '16px',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-  padding: '0 16px',
-  color: theme.formInputText,
-  userSelect: 'none',
-  willChange: 'background, color',
-  transition: 'all 150ms ease',
-  '&[data-selected="true"]': {
-    backgroundColor: 'blue',
-  },
-  '&[data-disabled="true"]': {
-    opacity: 0.5,
-  },
-  '&:active': {
-    backgroundColor: 'red',
-  },
-};
-
 export function CommandKModal({}: CommandKModalProps) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
     <Modal
       name="command-k"
-      // containerProps={{
-      //   style: { height: '50vh', backgroundColor: 'red' },
-      // }}
+      containerProps={{
+        style: { backgroundColor: theme.cardBackground },
+      }}
     >
       {({ state: { close } }) => (
         <>
@@ -68,28 +55,56 @@ export function CommandKModal({}: CommandKModalProps) {
               flexDirection: 'column',
             }}
           >
-            <View className="vercel_">
-              <Command label="Command Menu" className={css(commandRootStyle)}>
-                <Command.Input autoFocus className={css(commandInputStyle)} />
-                <Command.List>
-                  <Command.Empty>No results found.</Command.Empty>
-
-                  <Command.Group heading="Letters">
-                    <Command.Item className={css(commandItemStyle)}>
-                      azz
-                    </Command.Item>
-                    <Command.Item className={css(commandItemStyle)}>
-                      a
-                    </Command.Item>
-                    <Command.Item>b</Command.Item>
-                    <Command.Separator />
-                    <Command.Item>c</Command.Item>
-                  </Command.Group>
-
-                  <Command.Item>Apple</Command.Item>
-                </Command.List>
-              </Command>
-            </View>
+            <Command>
+              <CommandInput placeholder="Type a command or search..." />
+              <CommandList>
+                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandItem onSelect={() => navigate('/budget')}>
+                  <SvgWallet
+                    height={16}
+                    width={16}
+                    style={{ marginRight: 10 }}
+                  />
+                  {t('Budget')}
+                </CommandItem>
+                <CommandItem onSelect={() => navigate('/reports')}>
+                  <SvgReports
+                    height={16}
+                    width={16}
+                    style={{ marginRight: 10 }}
+                  />
+                  {t('Reports')}
+                </CommandItem>
+                <CommandItem onSelect={() => navigate('/schedules')}>
+                  <SvgCalendar
+                    height={16}
+                    width={16}
+                    style={{ marginRight: 10 }}
+                  />
+                  {t('Schedules')}
+                </CommandItem>
+                <CommandSeparator />
+                {/* <CommandGroup heading="Suggestions">
+                  <CommandItem>
+                    <SvgAdd
+                      style={{ height: 16, width: 16, marginRight: 10 }}
+                    />
+                    Calendar
+                  </CommandItem>
+                  <CommandItem>Search Emoji</CommandItem>
+                  <CommandItem>Calculator</CommandItem>
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Settings">
+                  <CommandItem>
+                    Profile
+                    <CommandShortcut>we</CommandShortcut>
+                  </CommandItem>
+                  <CommandItem>Billing</CommandItem>
+                  <CommandItem>Settings</CommandItem>
+                </CommandGroup> */}
+              </CommandList>
+            </Command>
           </View>
         </>
       )}
